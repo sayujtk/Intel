@@ -6,8 +6,8 @@ using namespace std;
 // This class manages two arrays and generates alternating sums
 class AlternatingSum {
 private:
-    vector<int> arr1;   // First array
-    vector<int> arr2;   // Second array
+    vector<int> arr1;  
+    vector<int> arr2;   
     vector<int> sums;   // Stores already computed sums (caching)
 
     int currentIndex;   // Tracks next index to compute
