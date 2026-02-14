@@ -1,66 +1,65 @@
 Alternating Sum Generator
 Overview
 
-This is a C++ console-based program that manages two dynamic arrays using alternating insertion.
-The program computes pairwise sums of elements from both arrays sequentially when requested.
+A C++ console application that alternately inserts user-provided integers into two internal sequences and computes pairwise sums sequentially.
 
-The system maintains internal state and caches previously computed sums to avoid recomputation.
+The system maintains internal state and caches computed results to prevent redundant calculations. It also performs overflow-safe arithmetic and strict input validation.
 
-How It Works
+Behavior
 
-Numbers entered by the user are inserted alternately:
+• Integers are inserted alternately:
 
-First number → arr1
+  • 1st → arr1
 
-Second number → arr2
+  • 2nd → arr2
 
-Third number → arr1
+  • 3rd → arr1
 
-Fourth number → arr2
+  • 4th → arr2
 
-and so on
+  • and so on
 
-When the user enters +:
+• Enter + to compute the next pairwise sum.
 
-The program computes the next pairwise sum.
+  • Previously computed sums are returned from cache.
 
-If the sum was already computed earlier, the cached result is returned.
+  • If no complete pair exists, a message is displayed.
 
-If no further pairs are available, an error is displayed.
+• Enter q to terminate the program.
 
-The program continues running until the user enters q.
+Internal Design
 
-Internally, the program uses:
+• std::vector<long long> used for storage
 
-Three std::vector<int> containers (arr1, arr2, sums)
+• Cached sum tracking to avoid recomputation
 
-A boolean flag to alternate insertion
+• Checked arithmetic to prevent signed integer overflow
 
-An index pointer to track sum progression
+• Strict numeric parsing using std::stoll
 
-Exception handling (std::stoi) for input validation
+• Clear separation between computation logic and I/O
 
-Accepted Inputs
-Input	Description
-Integer (e.g., 5, -3, 100)	Inserted alternately into arrays
-+	Computes next pairwise sum
-q	Terminates the program
+## Accepted Inputs
 
-All other inputs result in an error message.
+| Input                         | Action                          |
+|--------------------------------|---------------------------------|
+| Integer (e.g., 5, -3, 100)     | Inserted alternately            |
+| `+`                            | Compute next pairwise sum       |
+| `q`                            | Exit program                    |
+
+All other inputs are rejected.
+
 
 Edge Cases Handled
 
-1.Invalid Input
-Non-integer strings (e.g., abc, @, 1a) are rejected.
+• Invalid or malformed numeric input (e.g., abc, 1a)
 
-2.Negative Numbers
-Supported and inserted normally.
+• Out-of-range values for 64-bit integers
 
-3.Multi-digit Numbers
-Fully supported.
+• Negative and multi-digit numbers
 
-4.Repeated + After Completion
-If all possible sums have been computed, the program prints: Error: Array size exceeded
+• Repeated + after all valid pairs are computed
 
-5.Cached Results
-If + is pressed multiple times for already computed indices, the program reuses stored results instead of recalculating.
+• Signed integer overflow during addition
+
+• Repeated sum requests served from cache
